@@ -1,11 +1,11 @@
-# 📄 Lab Notes: Wazuh SIEM — Endpoint Detection Lab
+# 📄 Lab Notes: Wazuh SIEM - Endpoint Detection Lab
 
 - **Author**: Andre Patterson
 - **Environment**: Wazuh 4.14.7 | Ubuntu manager VM (VMware) | Windows 10 endpoint VM
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-## Lab 1 — Wazuh Server Installation (Ubuntu)
+## Lab 1 -  Wazuh Server Installation (Ubuntu)
 
 **Objective**: Install the Wazuh indexer, manager, dashboard on Ubuntu and get the dashboard accessible.
 
