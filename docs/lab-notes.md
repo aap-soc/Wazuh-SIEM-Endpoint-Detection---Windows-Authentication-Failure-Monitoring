@@ -10,6 +10,6 @@
 **Objective**: Install the Wazuh indexer, manager, dashboard on Ubuntu and get the dashboard accessible.
 
 
-**Step 1 — Review the Wazuh Dashboard Overview**
+**Step 1 - Review the Wazuh Dashboard Overview**
 Reviewed Wazuh's official website, which showcases the dashboard's features: regulatory compliance, vulnerability management, installation guides and single universal agent capabilities for endpoint protection.
 
