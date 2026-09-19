@@ -130,3 +130,54 @@ Lab 3 complete ✅
 
 ## Lab 4 - Threat Hunting & MITRE ATT&CK Mapping
 
+**Objective**: Confirm the deliberately-generated failures were detected, then identify the specific MITRE ATT&CK technique they represent.
+
+
+**Step 1 - Review the Overview Dashboard**
+
+Reviewed the Wazuh Overview dashboard, surfacing the full range of available modules: Threat Hunting, MITRE ATT&CK, Vulnerability Detection, File Integrity Monitoring, PCI DSS and others.
+
+Found 4 Authentication Failure logs, circled in green, on the Threat Hunting dashboard.
+![Reviewing the Wazuh dashboard overview](../screenshots/lab4-threat-hunting-mitre/01-image18.png)
+
+
+
+**Step 2 - Inspect the Underlying Events**
+
+Clicked the Events tab and confirmed the underlying evidence: `windows-agent` Logon Failure logs, matching the deliberately-generated failed login attempts from Lab 3.
+
+![Reviewing the Wazuh dashboard overview](../screenshots/lab4-threat-hunting-mitre/02-image19.png)
+
+
+
+
+**Step 3 — Map Against MITRE ATT&CK**
+
+Clicked the MITRE ATT&CK dashboard and mapped the `windows-agent` Logon Failure event against the MITRE ATT&CK framework, identifying it under the **Impact** tactic with technique ID **T1531**.
+![Reviewing the Wazuh dashboard overview](../screenshots/lab4-threat-hunting-mitre/03-image20.png)
+
+
+**Step 5 - Identify the Technique**
+Clicked the T1531 ID to bring up its full name and description: **Account Access Removal**. Per MITRE's own description, this covers adversaries interrupting availability of system and network resources by inhibiting access to accounts used by legitimate users - accounts may be deleted, locked, or manipulated to remove access.
+![Reviewing the Wazuh dashboard overview](../screenshots/lab4-threat-hunting-mitre/04-image21.png)
+
+
+Lab 4 complete ✅
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Resources Created - Summary
+
+|        **Resource**         |              **Name **                              |                           Purpose                                             |                                 
+|-----------------------------|-----------------------------------------------------|-------------------------------------------------------------------------------|
+|     **Wazuh Server**        |        Ubuntu VM (hostname: ubuntuSIEM)             |                     Manager, indexer and dashboard                            |
+|                             |                                                     |                                                                               |
+|      **Wazuh Agent**        |               windows-agent                         |                      Monitored Windows 10 endpoint                            |
+|                             |                                                     |                                                                               |
+|     **Detection Rule**      |               Rule ID 60122                         |             Logon Failure - Unknown user or bad password                      |
+|                             |                                                     |                                                                               |
+|    **MITRE ATT&CK Mappin**  |                  T1531                              |   Identifies the specific adversary technique behind the detected failures    |
+|                             |                                                     |                                                                               |
+|    **Dashboard View**       |  Threat Hunting → Events (filtered by manager.name) |                  Confirms end-to-end detection pipeline                       |
+
+
