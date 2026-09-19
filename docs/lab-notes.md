@@ -73,7 +73,7 @@ Copied the generated `Invoke-WebRequest` command into the PowerShell terminal on
 
 
 **Step 4 - Start the Wazuh Service**
-Ran `NET START wazuh` in the PowerShell terminal. The Wazuh service started successfully.
+Ran `NET START wazuh` in the PowerShell terminal 
 ![Reviewing the Wazuh dashboard overview](../screenshots/lab2-windows-agent-deployment/04-image10.png)
 
 
