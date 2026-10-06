@@ -70,7 +70,7 @@ Installing the Wazuh indexer, manager and dashboard on an Ubuntu VM.
 - Reviewed Wazuh's official website and selected Quickstart, which provides a single installation-assistant command covering the indexer, manager, Filebeat and dashboard in one step
 - Ran the installation assistant in my Ubuntu terminal via the generated "curl" command, watching the installer generate certificates and install each service in sequence (indexer → manager → Filebeat → dashboard)
 - Logged into the Wazuh dashboard using the credentials generated during installation
-- Diagnosed and resolved an initial "Invalid username or password" error by re-checking the generated credentials
+- Diagnosed and resolved an initial "Invalid username or password" error by double checking the generated credentials
 
 
 **Key security concepts:**
