@@ -140,6 +140,64 @@ Confirming the deliberately-generated failures were detected, then mapping the d
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+## Detection Automation - PowerShell Failed-Logon Script
+
+Alongside the Wazuh rule, this repo includes a small PowerShell script,
+[`Get-FailedLogons.ps1`](./Get-FailedLogons.ps1), that performs the **same detection
+locally on the Windows host**. Where Wazuh raises the alert centrally (rule `60122`),
+the script reads the Windows Security log directly and ranks the accounts with the most
+failures — a simple first-pass **brute-force / password-spray indicator** a Tier 1
+analyst can run during triage.
+
+### What it does
+
+- Reads **Event ID 4625** (failed logon) from the Windows Security log.
+- Extracts the `TargetUserName` for each failure.
+- Groups and ranks accounts by failure count, highest first.
+- Maps to **MITRE ATT&CK — T1110 (Brute Force)**.
+
+### How to run
+
+```powershell
+# From an Administrator PowerShell session
+Set-ExecutionPolicy -Scope Process Bypass
+.\Get-FailedLogons.ps1
+```
+
+### Output
+
+Repeated failed sign-ins were generated against a test account (`testattacker`), then the
+script was run to summarise them:
+
+![PowerShell script output ranking failed-logon accounts](images/powershell-output.png)
+
+### The same activity in Wazuh
+
+The identical failures were detected centrally by the Wazuh manager and surfaced in
+**Threat Hunting → Events** as rule `60122` ("Logon Failure - Unknown user or bad
+password"), level 5, from `windows-agent`:
+
+![Wazuh Events view showing rule 60122 logon-failure alerts](images/wazuh-rule-60122.png)
+
+### Detection chain
+
+Together these show the full path of a single detection, end to end:
+
+```
+Failed logon attempt  →  Windows Security log (Event ID 4625)
+        →  Wazuh alert (rule 60122, level 5)      [central SIEM/HIDS]
+        →  Get-FailedLogons.ps1 summary           [local triage]
+```
+
+> Lab note: thresholds and severity here are illustrative; in a production SOC these would
+> be tuned to the environment's baseline. A sensible next step is to flag **multiple
+> failures followed by a success** on the same account, a stronger compromise signal than
+> failures alone.
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 ## 📚 Key Security Concepts Demonstrated
 
 - **End-to-end SIEM deployment** - server install through to confirmed working detection, not just installation
@@ -150,6 +208,7 @@ Confirming the deliberately-generated failures were detected, then mapping the d
 
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 ## 🔗 Related Projects
 
 - 🖥️ Microsoft 365 Security Operations Tenant (SC-200) (https://github.com/aap-soc/Microsoft-365-Security-Operations-Tenant-SC-200)
